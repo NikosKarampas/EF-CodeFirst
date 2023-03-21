@@ -82,7 +82,7 @@ namespace Queries
             #endregion
 
 
-            #region Join with Group By
+            #region Join with Group By - LINQ syntax
 
             var query5 = from a in context.Authors
                          join c in context.Courses on a.Id equals c.AuthorId into g
@@ -90,6 +90,14 @@ namespace Queries
 
             foreach (var item in query5)            
                 Console.WriteLine("{0} ({1})", item.AuthorName, item.Courses);
+
+            #endregion
+
+            #region Cross join - LINQ syntax
+
+            var query6 = from a in context.Authors
+                         from c in context.Courses
+                         select new { AuthorName = a.Name, CourseName = c.Name };
 
             #endregion
 
