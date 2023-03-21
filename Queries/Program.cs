@@ -76,10 +76,20 @@ namespace Queries
                         AuthorName = author.Name 
                     });
 
-            foreach ( var c in query4)
-            {
-                Console.WriteLine(c.CourseName + " " + c.AuthorName);
-            }
+            //foreach ( var c in query4)            
+            //    Console.WriteLine(c.CourseName + " " + c.AuthorName);            
+
+            #endregion
+
+
+            #region Join with Group By
+
+            var query5 = from a in context.Authors
+                         join c in context.Courses on a.Id equals c.AuthorId into g
+                         select new { AuthorName = a.Name, Courses = g. Count() };
+
+            foreach (var item in query5)            
+                Console.WriteLine("{0} ({1})", item.AuthorName, item.Courses);
 
             #endregion
 
