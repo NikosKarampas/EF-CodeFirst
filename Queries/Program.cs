@@ -11,7 +11,7 @@ namespace Queries
     {
         static void Main(string[] args)
         {
-            var context = new PlutoContext();            
+            var context = new PlutoContext();                        
 
             #region LINQ syntaxt
 
@@ -137,6 +137,15 @@ namespace Queries
             {
                 Console.WriteLine("{0} {1}", c.Name, c.Author.Name);
             }
+
+            #endregion
+
+
+            #region Explicit loading
+
+            var mosh = context.Authors.Single(a => a.Id == 1);
+
+            context.Courses.Where(c => c.AuthorId == mosh.Id).Load();
 
             #endregion
 
