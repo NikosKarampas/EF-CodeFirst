@@ -12,16 +12,21 @@ namespace Queries
         {
             var context = new PlutoContext();
 
-            // LINQ syntaxt
+            #region LINQ syntaxt
+
             var query = from c in context.Courses
                         where c.Name.Contains("c#")
                         orderby c.Name
-                        select c;            
+                        select c;
 
             //foreach (var c in query)
             //    Console.WriteLine(c.Name);
 
-            // Extension Methods
+            #endregion
+
+
+            #region Extension Methods
+
             var courses = context.Courses
                 .Where(c => c.Name.Contains("c#"))
                 .OrderBy(c => c.Name);
@@ -29,7 +34,10 @@ namespace Queries
             //foreach (var c in courses)
             //    Console.WriteLine(c.Name);
 
-            #region Order by/Group by
+            #endregion
+
+
+            #region Order by/Group by LINQ syntax
 
             var query1 = from c in context.Courses
                          where c.Author.Id == 1
@@ -59,7 +67,7 @@ namespace Queries
             #endregion
 
 
-            #region Joins LINQ syntax/extension methods
+            #region Inner Joins LINQ syntax/extension methods
 
             var query3 = from c in context.Courses
                          join a in context.Authors
@@ -82,7 +90,7 @@ namespace Queries
             #endregion
 
 
-            #region Join with Group By - LINQ syntax
+            #region Group Join - LINQ syntax
 
             var query5 = from a in context.Authors
                          join c in context.Courses on a.Id equals c.AuthorId into g
@@ -92,6 +100,7 @@ namespace Queries
                 Console.WriteLine("{0} ({1})", item.AuthorName, item.Courses);
 
             #endregion
+
 
             #region Cross join - LINQ syntax
 
