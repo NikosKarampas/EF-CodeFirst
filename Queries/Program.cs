@@ -11,7 +11,7 @@ namespace Queries
     {
         static void Main(string[] args)
         {
-            var context = new PlutoContext();                        
+            var context = new PlutoContext();            
 
             #region LINQ syntaxt
 
@@ -146,6 +146,9 @@ namespace Queries
             var mosh = context.Authors.Single(a => a.Id == 1);
 
             context.Courses.Where(c => c.AuthorId == mosh.Id).Load();
+
+            //How to use
+            var moshCourses = mosh.Courses;
 
             #endregion
 
