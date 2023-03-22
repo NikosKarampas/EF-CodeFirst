@@ -96,8 +96,8 @@ namespace Queries
                          join c in context.Courses on a.Id equals c.AuthorId into g
                          select new { AuthorName = a.Name, Courses = g. Count() };
 
-            foreach (var item in query5)            
-                Console.WriteLine("{0} ({1})", item.AuthorName, item.Courses);
+            //foreach (var item in query5)            
+            //    Console.WriteLine("{0} ({1})", item.AuthorName, item.Courses);
 
             #endregion
 
@@ -107,6 +107,23 @@ namespace Queries
             var query6 = from a in context.Authors
                          from c in context.Courses
                          select new { AuthorName = a.Name, CourseName = c.Name };
+
+            #endregion
+
+
+            #region Group Join extension methods
+
+            var queryGroupJoin = context.Authors.GroupJoin(context.Courses,
+                a => a.Id,
+                c => c.AuthorId,
+                (author, coursess) => new
+                {
+                    AuthorName = author.Name,
+                    CoursesNo = coursess.Count()
+                });
+
+            foreach (var c in queryGroupJoin)
+                Console.WriteLine("Author Name: " + c.AuthorName + " No of Courses: " + c.CoursesNo);
 
             #endregion
 
