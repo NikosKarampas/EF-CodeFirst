@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Queries
 {
@@ -10,7 +11,7 @@ namespace Queries
     {
         static void Main(string[] args)
         {
-            var context = new PlutoContext();
+            var context = new PlutoContext();            
 
             #region LINQ syntaxt
 
@@ -124,6 +125,18 @@ namespace Queries
 
             foreach (var c in queryGroupJoin)
                 Console.WriteLine("Author Name: " + c.AuthorName + " No of Courses: " + c.CoursesNo);
+
+            #endregion
+
+
+            #region Eager Loading /If no virtual keyword and Include it throws an exception
+
+            var courses1 = context.Courses.Include(x => x.Author).ToList();
+
+            foreach (var c in courses1)
+            {
+                Console.WriteLine("{0} {1}", c.Name, c.Author.Name);
+            }
 
             #endregion
 
